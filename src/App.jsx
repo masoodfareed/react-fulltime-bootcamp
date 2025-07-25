@@ -6,6 +6,8 @@ import WelcomeBanner from './WelcomeBanner'
 import Profile from './Profile'
 import Counter from './Counter'
 import TextInput from './TextInput'
+import ProductList from './ProductList';
+import CardManager from './card-management/CardManager.jsx';
 
 
 function App() {
@@ -20,7 +22,9 @@ function App() {
           <WelcomeBanner myName="Masood's" />
 
           <hr className='my-5' />
-          <div className='row'> 
+
+          <CardManager />
+          {/* <div className='row'> 
             <div className='col-md-4'>
                 <Profile name="Masood" occupation="Software Engineer" />
             </div>
@@ -31,14 +35,17 @@ function App() {
                 <Profile name="John" occupation="Software Engineer" />
             </div>
                  
-          </div>
+          </div> */}
 
           <hr className='my-5' />
+          <ProductList />
+
+          {/* <hr className='my-5' />
           <Counter />
          
          <hr className='my-5' />
 
-          <TextInput />
+          <TextInput /> */}
         
       </div>
      
