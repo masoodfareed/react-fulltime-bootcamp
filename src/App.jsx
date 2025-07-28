@@ -37,8 +37,8 @@ function App() {
                  
           </div> */}
 
-          <hr className='my-5' />
-          <ProductList />
+          {/* <hr className='my-5' />
+          <ProductList /> */}
 
           {/* <hr className='my-5' />
           <Counter />

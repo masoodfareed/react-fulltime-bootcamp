@@ -13,6 +13,10 @@ function CardManager()
     const [newCardTitle, setNewCardTitle] = useState('');
     const [newCardDescription, setNewCardDescription] = useState('');
 
+    const [editingCardId, setEditingCardId] = useState(null);
+    const [editingTitle, setEditingTitle] = useState('');
+    const [editingDescription, setEditingDescription] = useState('');
+
     const handleAddCard = (e) => {
         e.preventDefault();
         const newCard = {
@@ -26,10 +30,45 @@ function CardManager()
         setNewCardDescription('');
     }
 
+    const handleDeleteCard = (id) => {
+        const updatedCards = cards.filter(card => card.id !== id);
+        setCards(updatedCards);
+    }
+
+    const handleEditCard = (id, title, description) => {
+        setEditingCardId(id);
+        setEditingTitle(title);
+        setEditingDescription(description);
+    }
+
+    const handleSaveCard = (id) => {
+        const updatedCards = cards.map(card => {
+            if (card.id === id) {
+                return {
+                    ...card,
+                    title: editingTitle,
+                    description: editingDescription
+                };
+            }
+            return card;
+        });
+
+        setCards(updatedCards);
+        setEditingCardId(null);
+        setEditingTitle('');
+        setEditingDescription('');
+    }
+
+    const handleCancelEdit = () => {
+        setEditingCardId(null);
+        setEditingTitle('');
+        setEditingDescription('');
+    }
+
     return (
-        <div className='container'>
+        <div className='card p-4 m-3 shadow-lg mx-auto '>
             
-            <h2 className='text-center my-4'>Card Management</h2>
+            <h2 className='text-center mb-4'>Card Management</h2>
 
             <form className='mb-4 p-3 border rounded bg-light' onSubmit={handleAddCard}>
                 <h4  className='mb-3'>Add New Card</h4>
@@ -60,14 +99,25 @@ function CardManager()
                 <button type='submit' className='btn btn-primary'>Add Card</button>
             </form>
 
-
+            <hr />
 
             <div className='d-flex flex-wrap justify-content-center'>
                 {cards.map(card => (
-                    <div className='col-md-3' key={card.id}>
+                    <div className='' key={card.id}>
                         <CardItem 
+                            key={card.id}
+                            id={card.id}
                             title={card.title} 
-                            description={card.description} 
+                            description={card.description}
+                            onDelete={handleDeleteCard}
+                            onEdit={handleEditCard}
+                            isEditing={editingCardId === card.id}
+                            editedTitle={editingTitle}
+                            onEditedTitleChange={(e) => setEditingTitle(e.target.value)}
+                            editedDescription={editingDescription}
+                            onEditedDescriptionChange={(e) => setEditingDescription(e.target.value)}
+                            onSave={handleSaveCard}
+                            onCancel={handleCancelEdit} 
                         />
                     </div>
                 ))}
