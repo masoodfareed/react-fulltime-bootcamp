@@ -8,6 +8,10 @@ import Counter from './Counter'
 import TextInput from './TextInput'
 import ProductList from './ProductList';
 import CardManager from './card-management/CardManager.jsx';
+import Navbar from './Navbar';
+import { Routes, Route } from 'react-router-dom';
+import Gallery from './Gallery.jsx';
+import Dashboard from './Dashboard.jsx';
 
 
 function App() {
@@ -18,35 +22,25 @@ function App() {
 
   return (
     <>
-      <div>
-          <WelcomeBanner myName="Masood's" />
+      <div className='App'>
+          <Navbar />
+          <div className='container mt-4'>  
+            <Routes>
+                <Route path='/' element={ <WelcomeBanner name={userName} /> } />
+                <Route path='/profile' element={ <Profile name={userName} occupation='Software Engineer' /> } />
+                <Route path='/counter' element={ <Counter /> } />
+                <Route path='/card-management' element={ <CardManager /> } />
+                <Route path='/dashboard' element={ <Dashboard /> }>
+                    <Route index element={ <Profile name={userName} occupation='Software Engineer' /> } />
+                    <Route path='profile' element={ <Profile name={userName} occupation='Software Engineer' /> } />
+                    <Route path='counter' element={ <Counter /> } />
+                </Route>
+                <Route path='/products' element={ <ProductList /> } />
+                <Route path='/gallery' element={ <Gallery /> } />
+            </Routes>
 
-          <hr className='my-5' />
+          </div>
 
-          <CardManager />
-          {/* <div className='row'> 
-            <div className='col-md-4'>
-                <Profile name="Masood" occupation="Software Engineer" />
-            </div>
-            <div className='col-md-4'>
-                <Profile name="Jean" occupation="Software Engineer" />
-            </div>
-            <div className='col-md-4'>
-                <Profile name="John" occupation="Software Engineer" />
-            </div>
-                 
-          </div> */}
-
-          {/* <hr className='my-5' />
-          <ProductList /> */}
-
-          {/* <hr className='my-5' />
-          <Counter />
-         
-         <hr className='my-5' />
-
-          <TextInput /> */}
-        
       </div>
      
 
